@@ -20,4 +20,26 @@ def opcion1(diccionario):
         nombre.append(i.get("nombre"))
         url.append(i.get("imagen"))
 
-    return nombre,url        
+    return nombre,url   
+
+def opcion2(diccionario,caja_input):
+    objetos = []
+    for i in diccionario:
+        if i['nombre'] == caja_input:
+            for j in i['descripción']['contenido']:
+                objetos.append(list(j.values())[0])
+                
+    return objetos
+
+def opcion3(minimo,maximo,diccionario):
+    for i in diccionario:
+        precio=i['precio_compra']
+        precio.replace('$','')
+        print(precio)
+        precio=float(precio)
+        if precio >= minimo and precio <= maximo:
+            print(i['nombre'])
+    
+
+
+
