@@ -31,15 +31,62 @@ def opcion2(diccionario,caja_input):
                 
     return objetos
 
-def opcion3(minimo,maximo,diccionario):
+def opcion3_compra(minimo,maximo,diccionario):
+    cajas_compra = []
+    precio_cajas=[]
     for i in diccionario:
         precio=i['precio_compra']
-        precio.replace('$','')
-        print(precio)
+        precio=precio.replace('$','')
         precio=float(precio)
         if precio >= minimo and precio <= maximo:
-            print(i['nombre'])
+            cajas_compra.append(i['nombre'])
+            precio_cajas.append(precio)
+    return cajas_compra, precio_cajas    
+
+def opcion3_venta(minimo,maximo,diccionario):
+    cajas_venta = []
+    precio_cajas = []
+    for i in diccionario:
+        precio=i['sale_price_text']
+        precio=precio.replace('$','')
+        precio=float(precio)
+        if precio >= minimo and precio <= maximo:
+            cajas_venta.append(i['nombre'])
+            precio_cajas.append(precio)
+    return cajas_venta, precio_cajas  
+
+def opcion4(hexadecimal,diccionario):
+    for i in diccionario:
+        cantidad = []
+        objetos = []
+        for j in i['descripción']['contenido']:
+            valor_hxd_j = list(j.values())[1]
+            valor_obj_j = list(j.values())[0]
+            if hexadecimal == valor_hxd_j:
+                cantidad.append(valor_hxd_j)
+                objetos.append(valor_obj_j)
+                
+        print('\nPara la caja',i['nombre'],'hay un total de',len(cantidad),'objetos con ese hexadecimal y son:\n')
+        for z in objetos:
+            print(z,'\n------------------------')
+
+def opcion5_venta (diccionario,orden):
+    cajas = []
+    descripcion = []
+    precio_venta = []
+    for i in diccionario:
+        precio = i['sale_price_text']
+        precio = precio.replace('$','')
+        precio=float(precio)
+        precio_venta.append(precio)
+        precio_venta.sort(reverse=orden)
     
-
-
-
+    for i in diccionario:
+        precio = i['sale_price_text']
+        precio = precio.replace('$','')
+        precio=float(precio)
+        if precio == precio_venta[len(cajas)]:
+            cajas.append(i['nombre'])
+            descripcion.append(i['descripción']['tipo'])
+        
+    print(cajas,descripcion,precio_venta)
