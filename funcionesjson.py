@@ -74,6 +74,7 @@ def opcion5_venta (diccionario,orden):
     cajas = []
     descripcion = []
     precio_venta = []
+    coincidencias = []
     for i in diccionario:
         precio = i['sale_price_text']
         precio = precio.replace('$','')
@@ -82,11 +83,49 @@ def opcion5_venta (diccionario,orden):
         precio_venta.sort(reverse=orden)
     
     for i in diccionario:
-        precio = i['sale_price_text']
-        precio = precio.replace('$','')
-        precio=float(precio)
-        if precio == precio_venta[len(cajas)]:
+        precio = float(i['sale_price_text'].replace('$',''))
+        if precio in precio_venta:
+            indice_z = precio_venta.index(precio)
+            cajas.insert(indice_z, i['nombre'])
+            descripcion.insert(indice_z, i['descripción']['tipo'])
+        else:
             cajas.append(i['nombre'])
             descripcion.append(i['descripción']['tipo'])
-        
-    print(cajas,descripcion,precio_venta)
+    
+    for i in range(len(cajas)):
+        print('Caja:',cajas[i],'------ Calidad:',descripcion[i],'------ Precio de venta:',precio_venta[i])
+    
+    for i in descripcion:
+        repetidas=descripcion.count(i)
+        coincidencias.append(i)
+        if i in coincidencias:
+            coincidencias.remove(i)
+            print(coincidencias)
+            print('Hay',repetidas,i)
+
+
+
+
+def opcion5_compra (diccionario,orden):
+    cajas = []
+    descripcion = []
+    precio_venta = []
+    for i in diccionario:
+        precio = i['precio_compra']
+        precio = precio.replace('$','')
+        precio=float(precio)
+        precio_venta.append(precio)
+        precio_venta.sort(reverse=orden)
+    
+    for i in diccionario:
+        precio = float(i['precio_compra'].replace('$',''))
+        if precio in precio_venta:
+            indice_z = precio_venta.index(precio)
+            cajas.insert(indice_z, i['nombre'])
+            descripcion.insert(indice_z, i['descripción']['tipo'])
+        else:
+            cajas.append(i['nombre'])
+            descripcion.append(i['descripción']['tipo'])
+
+    for i in range(len(cajas)):
+        print('Caja:',cajas[i],'------ Calidad:',descripcion[i],'------ Precio de venta:',precio_venta[i])
