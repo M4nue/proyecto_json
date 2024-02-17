@@ -11,6 +11,7 @@ def menu():
     print('3º Mostrar los precios de venta y de compra de las cajas')
     print('4º Introduce un hexadecimal para mostrar los objetos con este color')
     print('5º Mostrar los nombres de las cajas con su tipo, ordenadas')
+    print('6º Fin del programa')
     print('===================================================================\n')
 
 def opcion1(diccionario):
@@ -97,30 +98,27 @@ def opcion5_venta (diccionario,orden):
     
     for i in descripcion:
         repetidas=descripcion.count(i)
-        coincidencias.append(i)
-        if i in coincidencias:
-            coincidencias.remove(i)
-            print(coincidencias)
+        if i in descripcion and i not in coincidencias:
+            coincidencias.append(i)
             print('Hay',repetidas,i)
-
-
 
 
 def opcion5_compra (diccionario,orden):
     cajas = []
     descripcion = []
-    precio_venta = []
+    precio_compra = []
+    coincidencias = []
     for i in diccionario:
         precio = i['precio_compra']
         precio = precio.replace('$','')
         precio=float(precio)
-        precio_venta.append(precio)
-        precio_venta.sort(reverse=orden)
+        precio_compra.append(precio)
+        precio_compra.sort(reverse=orden)
     
     for i in diccionario:
         precio = float(i['precio_compra'].replace('$',''))
-        if precio in precio_venta:
-            indice_z = precio_venta.index(precio)
+        if precio in precio_compra:
+            indice_z = precio_compra.index(precio)
             cajas.insert(indice_z, i['nombre'])
             descripcion.insert(indice_z, i['descripción']['tipo'])
         else:
@@ -128,4 +126,19 @@ def opcion5_compra (diccionario,orden):
             descripcion.append(i['descripción']['tipo'])
 
     for i in range(len(cajas)):
-        print('Caja:',cajas[i],'------ Calidad:',descripcion[i],'------ Precio de venta:',precio_venta[i])
+        print('Caja:',cajas[i],'------ Calidad:',descripcion[i],'------ Precio de compra:',precio_compra[i])
+    
+    for i in descripcion:
+        repetidas=descripcion.count(i)
+        if i in descripcion and i not in coincidencias:
+            coincidencias.append(i)
+            print('Hay',repetidas,i)
+
+
+def comprobar_opcion_menu(opcion,valida):
+    if opcion <1 or opcion > 6:
+        print('Por favor introduce una opción valida')
+    else:
+        valida=True
+    return valida
+        
