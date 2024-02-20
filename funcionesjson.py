@@ -21,7 +21,20 @@ def opcion1(diccionario):
         nombre.append(i.get("nombre"))
         url.append(i.get("imagen"))
 
-    return nombre,url   
+    return nombre,url  
+
+def comprobar_caja(caja,diccionario,correcto):
+    nombres=[] 
+    for i in diccionario:
+        nombres.append(i['nombre'])
+    if caja in nombres:
+        correcto= True
+    else:
+        print('El nombre de la caja no existe, introduce un existente\n')
+        correcto= False
+    return correcto
+
+     
 
 def opcion2(diccionario,caja_input):
     objetos = []
@@ -31,6 +44,15 @@ def opcion2(diccionario,caja_input):
                 objetos.append(list(j.values())[0])
                 
     return objetos
+
+def opcion3_comprobar_compra_venta(minimo,maximo,correcto):
+    if minimo > maximo:
+        print('Introduce otros valores donde el minimo sea menor que el maximo\n')
+        correcto=False
+    else:
+        correcto=True
+    return correcto
+
 
 def opcion3_compra(minimo,maximo,diccionario):
     cajas_compra = []

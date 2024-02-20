@@ -27,7 +27,12 @@ while continuar==True:
     elif opcion == 2:
 
         try:
-            caja=input('Introduce el nombre de la caja que quieres consultar: ')
+            correcto=False
+            caja = ''
+            while correcto==False:
+                caja=input('Introduce el nombre de la caja que quieres consultar: ')
+                correcto=funcionesjson.comprobar_caja(caja,archivo_json,correcto)
+            
             resultado=funcionesjson.opcion2(archivo_json,caja)
 
             for i in resultado:
@@ -39,8 +44,11 @@ while continuar==True:
     elif opcion == 3:
 
         try:
-            precio_minimo = float(input('introduce el precio minimo de coste de la caja: '))
-            precio_maximo = float(input('introduce el precio maximo de coste de la caja: '))
+            correcto = False
+            while correcto == False:
+                precio_minimo = float(input('introduce el precio minimo de coste de la caja: '))
+                precio_maximo = float(input('introduce el precio maximo de coste de la caja: '))
+                correcto = funcionesjson.opcion3_comprobar_compra_venta(precio_minimo,precio_maximo,correcto)
 
             cajas_rango_compra = funcionesjson.opcion3_compra(precio_minimo,precio_maximo,archivo_json)
             cajas_rango_venta = funcionesjson.opcion3_venta(precio_minimo,precio_maximo,archivo_json)
